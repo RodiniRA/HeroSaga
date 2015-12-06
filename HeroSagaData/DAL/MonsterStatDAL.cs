@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,7 +25,7 @@ namespace HeroSagaData.DAL
         {
             using (var cmd = new SqlCommand())
             {
-                cmd.Connection = new SqlConnection("CONNECT ME!");
+                cmd.Connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 if (monsterStat.MonsterStatId > 0) 
@@ -56,14 +57,19 @@ namespace HeroSagaData.DAL
                 var resultDS = new DataSet();
 
                 sqlDA.SelectCommand = new SqlCommand();
-                sqlDA.SelectCommand.Connection = new SqlConnection("CONNECT ME!");
+                sqlDA.SelectCommand.Connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
                 sqlDA.SelectCommand.CommandType = CommandType.StoredProcedure;
                 sqlDA.SelectCommand.CommandText = "dbo.Get_MonsterStatByID";
                 sqlDA.SelectCommand.Parameters.AddWithValue("@MonsterStatID", monsterStatId);
 
                 sqlDA.Fill(resultDS, "MonsterStat");
-                var monsterStat = InItFromDB(resultDS.Tables["MonsterStat"].Rows[0]);
-                return monsterStat;
+								MonsterStat entity = new MonsterStat();
+								if (resultDS.Tables[0].Rows.Count > 0)
+								{
+									entity = Mapping.MapToMonsterStat(resultDS.Tables[0].Rows[0]);
+
+								}
+								return entity;
             }
         }
 
@@ -71,7 +77,7 @@ namespace HeroSagaData.DAL
         {
             using (var cmd = new SqlCommand())
             {
-                cmd.Connection = new SqlConnection("CONNECT ME!");
+                cmd.Connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "dbo.Delete_MonsterStat";
                 cmd.Parameters.AddWithValue("@MonsterStatID", monsterStatId);

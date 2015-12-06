@@ -1,0 +1,29 @@
+﻿@model IEnumerable<HeroSaga.Models.HeroStat>
+
+
+<table class="table">
+    <tr>
+			<th>
+				@Html.DisplayNameFor(model => model.StatName)
+			</th>
+        <th>
+            @Html.DisplayNameFor(model => model.CurrentValue)
+        </th>
+
+
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.StatName)
+			</td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CurrentValue)
+        </td>
+
+
+    </tr>
+}
+
+</table>

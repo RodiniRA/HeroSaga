@@ -5,7 +5,7 @@ using System.Web;
 
 namespace HeroSaga.Models
 {
-    public class MonsterType
+	public class MonsterType
     {
         public int MonsterTypeId { get; set; }
         public string Name { get; set; }

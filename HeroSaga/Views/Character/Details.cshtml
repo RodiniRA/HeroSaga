@@ -1,0 +1,27 @@
+﻿@model HeroSaga.Models.Hero
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<div class="row">
+	<div class="col-md-7">
+		<h1>@Model.Name - Lvl @Model.Level</h1>
+		<p>
+			@Model.Origin.Description
+		</p>
+	</div>
+	<div class="col-md-5">
+		@{ Html.RenderAction("Stats", new { HeroId = Model.HeroId }); }
+
+		
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		@{ Html.RenderAction("Battles", new {HeroId = Model.HeroId}); }
+
+
+	</div>
+</div>

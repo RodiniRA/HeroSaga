@@ -1,0 +1,42 @@
+﻿@model IEnumerable<HeroSaga.Models.BattleLog>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BattleDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MonsterName)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.VictoryStatus)
+        </th>
+
+
+        <th>
+            @Html.DisplayNameFor(model => model.XPWorth)
+        </th>
+
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.BattleDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MonsterName)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.VictoryStatus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.XPWorth)
+        </td>
+
+    </tr>
+}
+
+</table>

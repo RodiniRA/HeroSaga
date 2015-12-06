@@ -10,7 +10,7 @@ namespace HeroSagaData.Interfaces
     public interface IRepo<T>
     {
         int Save(T model);
-        T Load();
+				T Load(int id);
         void Delete(int id);
     }
 }

@@ -13,31 +13,17 @@ namespace HeroSaga.Models
         public static BattleLog MapToBattleLog(DataRow row)
         {
             var battleLog = new BattleLog();
-            var hero = new Hero();
-            var heroType = new HeroType();
-            var origin = new Origin();
-            var monster = new Monster();
-            var monsterType = new MonsterType();
+          
+          
 
-            hero.HeroId = int.Parse(row["HeroID"].ToString());
-            heroType.HeroTypeId = int.Parse(row["HeroTypeID"].ToString()); ;
-            heroType.Name = row["HeroTypeName"].ToString();
-            heroType.Description = row["HeroTypeDescription"].ToString();
-            hero.HeroType = heroType;
-            origin.OriginId = int.Parse(row["OriginID"].ToString());
-            origin.Name = row["OriginName"].ToString();
-            origin.Description = row["OriginDescription"].ToString();
-            hero.Origin = origin;
-            hero.Level = int.Parse(row["Level"].ToString());
-            hero.Name = row["HeroName"].ToString();
-
-            monsterType.MonsterTypeId = int.Parse(row["MonsterTypeID"].ToString());
             if (row["BattleLogID"] != null) battleLog.BattleLogId = int.Parse(row["BattleLogID"].ToString());
             if (row["BattleDate"] != null) battleLog.BattleDate = DateTime.Parse(row["BattleDate"].ToString());
-            if (row["HeroID"] != null) battleLog.Hero = hero;
-            if (row["MonsterID"] != null) monster.MonsterId = int.Parse(row["MonsterID"].ToString());
-            if (row["VictoryStatus"] != null) battleLog.VictoryStatus = bool.Parse(row["VictoryStatus"].ToString());
-            if (row["IsActive"] != null) battleLog.IsActive = bool.Parse(row["IsActive"].ToString());
+						if (row["HeroID"] != null) battleLog.HeroID = int.Parse(row["HeroID"].ToString());
+						if (row["MonsterID"] != null) battleLog.MonsterId = int.Parse(row["MonsterID"].ToString());
+						if (row["MonsterName"] != null) battleLog.MonsterName = row["MonsterName"].ToString();
+						if (row["HeroName"] != null) battleLog.HeroName = row["HeroName"].ToString();
+						if (row["VictoryStatus"] != null) battleLog.VictoryStatus = bool.Parse(row["VictoryStatus"].ToString());
+						if (row["XPWorth"] != null) battleLog.XPWorth = int.Parse(row["XPWorth"].ToString());
             return battleLog;
         }
 
@@ -46,6 +32,8 @@ namespace HeroSaga.Models
             var hero = new Hero();
             var heroType = new HeroType();
             var origin = new Origin();
+						hero.Origin = origin;
+						hero.HeroType = heroType;
 
             heroType.HeroTypeId = int.Parse(row["HeroTypeID"].ToString());
             heroType.Name = row["HeroTypeName"].ToString();
@@ -54,7 +42,7 @@ namespace HeroSaga.Models
             origin.OriginId = int.Parse(row["OriginID"].ToString());
             origin.Name = row["OriginName"].ToString();
             origin.Description = row["OriginDescription"].ToString();
-
+					
             if (row["HeroID"] != null) hero.HeroId = int.Parse(row["HeroID"].ToString());
             if (row["HeroTypeID"] != null) hero.HeroType = heroType;
             if (row["OriginID"] != null) hero.Origin = origin;
@@ -63,17 +51,22 @@ namespace HeroSaga.Models
             if (row["Gender"] != null) hero.Gender = row["Gender"].ToString();
             if (row["HeroName"] != null) hero.Name = row["HeroName"].ToString();
             if (row["IsActive"] != null) hero.IsActive = bool.Parse(row["IsActive"].ToString());
+
+
+	        
             return hero;
         }
 
         public static HeroStat MapToHeroStat(DataRow row)
         {
             var heroStat = new HeroStat();
-            if (row["HeroStatID"] != null) heroStat.HeroStatId = int.Parse(row["HeroStatID"].ToString());
-            if (row["HeroID"] != null) heroStat.HeroId = int.Parse(row["HeroID"].ToString());
-            if (row["StatID"] != null) heroStat.Stat = statBll.Load(int.Parse(row["StatID"].ToString()));
-            if (row["CurrentValue"] != null) heroStat.CurrentValue = decimal.Parse(row["CurrentValue"].ToString());
-            if (row["IsActive"] != null) heroStat.IsActive = bool.Parse(row["IsActive"].ToString());
+
+						if (row["HeroStatID"] != null) heroStat.HeroStatId = int.Parse(row["HeroStatID"].ToString());
+						if (row["StatID"] != null) heroStat.StatId = int.Parse(row["StatID"].ToString());
+						if (row["CurrentValue"] != null) heroStat.CurrentValue = row["CurrentValue"].ToString();
+						if (row["StatName"] != null) heroStat.StatName = row["StatName"].ToString();
+
+
             return heroStat;
         }
 
@@ -89,9 +82,10 @@ namespace HeroSaga.Models
 
         public static Monster MapToMonster(DataRow row)
         {
-            var monster = new Monster();
-            if (row["MonsterID"] != null) monster.MonsterId = int.Parse(row["MonsterID"].ToString());
-            if (row["MonsterTypeID"] != null) monster.MonsterType = monsterTypeBll.Load(int.Parse(row["MonsterTypeID"].ToString()));
+	        var monster = new Monster {MonsterType = new MonsterType()};
+	        if (row["MonsterID"] != null) monster.MonsterId = int.Parse(row["MonsterID"].ToString());
+						if (row["MonsterTypeID"] != null) monster.MonsterType.MonsterTypeId = int.Parse(row["MonsterTypeID"].ToString());
+						if (row["MonsterTypeName"] != null) monster.MonsterType.Name = row["MonsterTypeName"].ToString();
             if (row["Level"] != null) monster.Level = int.Parse(row["Level"].ToString());
             if (row["XPWorth"] != null) monster.XPWorth = int.Parse(row["CPWorth"].ToString());
             if (row["MonsterName"] != null) monster.Name = row["MonsterName"].ToString();
@@ -101,10 +95,11 @@ namespace HeroSaga.Models
 
         public static MonsterStat MapToMonsterStat(DataRow row)
         {
-            var monsterStat = new MonsterStat();
-            if (row["MonsterStatID"] != null) monsterStat.MonsterStatId = int.Parse(row["MonsterStatID"].ToString());
+	        var monsterStat = new MonsterStat {Stat = new Stat()};
+	        if (row["MonsterStatID"] != null) monsterStat.MonsterStatId = int.Parse(row["MonsterStatID"].ToString());
             if (row["MonsterID"] != null) monsterStat.MonsterId = int.Parse(row["MonsterID"].ToString());
-            if (row["StatID"] != null) monsterStat.Stat = statBll.Load(int.Parse(row["StatID"].ToString()));
+						if (row["StatID"] != null) monsterStat.Stat.StatId = int.Parse(row["StatID"].ToString());
+						if (row["StatID"] != null) monsterStat.Stat.Name = row["StatName"].ToString();
             if (row["CurrentValue"] != null) monsterStat.CurrentValue = decimal.Parse(row["CurrentValue"].ToString());
             if (row["IsActive"] != null) monsterStat.IsActive = bool.Parse(row["IsActive"].ToString());
             return monsterStat;

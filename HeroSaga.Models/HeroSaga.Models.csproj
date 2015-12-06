@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D20E5E0F-D5BD-42EF-94B3-944CC59B0B37}</ProjectGuid>
+    <ProjectGuid>{A90A8E9F-DA42-46D4-87E5-ADC14B68DD29}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HeroSagaData</RootNamespace>
-    <AssemblyName>HeroSagaData</AssemblyName>
+    <RootNamespace>HeroSaga.Models</RootNamespace>
+    <AssemblyName>HeroSaga.Models</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,7 +31,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -40,34 +39,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BLL\BattleLogBLL.cs" />
-    <Compile Include="BLL\HeroBLL.cs" />
-    <Compile Include="BLL\HeroStatBLL.cs" />
-    <Compile Include="BLL\HeroTypeBLL.cs" />
-    <Compile Include="BLL\MonsterBLL.cs" />
-    <Compile Include="BLL\MonsterStatBLL.cs" />
-    <Compile Include="BLL\MonsterTypeBLL.cs" />
-    <Compile Include="BLL\OriginBLL.cs" />
-    <Compile Include="BLL\StatBLL.cs" />
-    <Compile Include="Class1.cs" />
-    <Compile Include="DAL\BattleLogDAL.cs" />
-    <Compile Include="DAL\HeroDAL.cs" />
-    <Compile Include="DAL\HeroStatDAL.cs" />
-    <Compile Include="DAL\HeroTypeDAL.cs" />
-    <Compile Include="DAL\MonsterDAL.cs" />
-    <Compile Include="DAL\MonsterStatDAL.cs" />
-    <Compile Include="DAL\MonsterTypeDAL.cs" />
-    <Compile Include="DAL\OriginDAL.cs" />
-    <Compile Include="DAL\StatDAL.cs" />
-    <Compile Include="Interfaces\IRepo.cs" />
-    <Compile Include="DAL\Mapping.cs" />
+    <Compile Include="BattleLog.cs" />
+    <Compile Include="Hero.cs" />
+    <Compile Include="HeroStat.cs" />
+    <Compile Include="HeroType.cs" />
+    <Compile Include="Monster.cs" />
+    <Compile Include="MonsterStat.cs" />
+    <Compile Include="MonsterType.cs" />
+    <Compile Include="Origin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\HeroSaga.Models\HeroSaga.Models.csproj">
-      <Project>{A90A8E9F-DA42-46D4-87E5-ADC14B68DD29}</Project>
-      <Name>HeroSaga.Models</Name>
-    </ProjectReference>
+    <Compile Include="Stat.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

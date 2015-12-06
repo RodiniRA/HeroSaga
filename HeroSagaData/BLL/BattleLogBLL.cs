@@ -24,9 +24,9 @@ namespace HeroSagaData.BLL
             return battleLogId;
         }
 
-        public BattleLog Load(int battleLogId)
+        public BattleLog Load(int id)
         {
-            var battleLog = _db.Load(battleLogId);
+            var battleLog = _db.Load(id);
             return battleLog;
         }
 
@@ -34,5 +34,11 @@ namespace HeroSagaData.BLL
         {
             _db.Delete(battleLogId);
         }
+
+	    public IEnumerable<BattleLog> GetByHeroId(int heroid)
+	    {
+
+		    return _db.GetByHeroId(heroid);
+	    }
     }
 }

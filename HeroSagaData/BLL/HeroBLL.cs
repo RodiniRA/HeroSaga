@@ -9,7 +9,7 @@ using HeroSagaData.Interfaces;
 
 namespace HeroSagaData.BLL
 {
-    class HeroBLL : IRepo<Hero>
+    public class HeroBLL : IRepo<Hero>
     {
         private HeroDAL _db;
 
@@ -34,5 +34,15 @@ namespace HeroSagaData.BLL
         {
             _db.Delete(heroId);
         }
+
+	    public IEnumerable<Hero> GetAll()
+	    {
+		    return _db.GetAll();
+	    }
+
+	    public List<HeroStat> GetHeroStatsByHeroId(int heroid)
+	    {
+				return _db.GetHeroStatsByHeroId(heroid);
+	    }
     }
 }

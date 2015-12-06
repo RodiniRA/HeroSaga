@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,7 +25,7 @@ namespace HeroSagaData.DAL
         {
             using (var cmd = new SqlCommand())
             {
-                cmd.Connection = new SqlConnection("CONNECT ME!");
+                cmd.Connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 if (heroStat.HeroStatId > 0)
@@ -32,17 +33,15 @@ namespace HeroSagaData.DAL
                     cmd.CommandText = "dbo.Update_HeroStat";
                     cmd.Parameters.AddWithValue("@HeroStatID", heroStat.HeroStatId);
                     cmd.Parameters.AddWithValue("@HeroID", heroStat.HeroId);
-                    cmd.Parameters.AddWithValue("@StatID", heroStat.Stat.StatId);
+                    cmd.Parameters.AddWithValue("@StatID", heroStat.StatId);
                     cmd.Parameters.AddWithValue("@CurrentValue", heroStat.CurrentValue);
-                    cmd.Parameters.AddWithValue("@IsActive", heroStat.IsActive);
                 }
                 else
                 {
                     cmd.CommandText = "dbo.Save_HeroStat";
                     cmd.Parameters.AddWithValue("@HeroID", heroStat.HeroId);
-                    cmd.Parameters.AddWithValue("@StatID", heroStat.Stat.StatId);
+                    cmd.Parameters.AddWithValue("@StatID", heroStat.StatId);
                     cmd.Parameters.AddWithValue("@CurrentValue", heroStat.CurrentValue);
-                    cmd.Parameters.AddWithValue("@IsActive", heroStat.IsActive);
                 }
 
                 int index = (int)cmd.ExecuteScalar();
@@ -58,14 +57,19 @@ namespace HeroSagaData.DAL
                 var resultDS = new DataSet();
 
                 sqlDA.SelectCommand = new SqlCommand();
-                sqlDA.SelectCommand.Connection = new SqlConnection("CONNECT ME!");
+                sqlDA.SelectCommand.Connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
                 sqlDA.SelectCommand.CommandType = CommandType.StoredProcedure;
                 sqlDA.SelectCommand.CommandText = "dbo.Get_HeroStatByID";
                 sqlDA.SelectCommand.Parameters.AddWithValue("@HeroStatID", heroStatId);
 
                 sqlDA.Fill(resultDS, "HeroStat");
-                var heroStat = InItFromDB(resultDS.Tables["HeroStat"].Rows[0]);
-                return heroStat;
+								HeroStat entity = new HeroStat();
+								if (resultDS.Tables[0].Rows.Count > 0)
+								{
+									entity = Mapping.MapToHeroStat(resultDS.Tables[0].Rows[0]);
+
+								}
+								return entity;
             }
         }
 
@@ -73,7 +77,7 @@ namespace HeroSagaData.DAL
         {
             using (var cmd = new SqlCommand())
             {
-                cmd.Connection = new SqlConnection("CONNECT ME!");
+                cmd.Connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "dbo.Delete_HeroStat";
                 cmd.Parameters.AddWithValue("@HeroStatID", heroStatId);
